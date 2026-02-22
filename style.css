@@ -50,11 +50,11 @@ body{
 /* start titles */
 .title-top{
   text-align:center;
-  font-size:18px;
+  font-size:25px;
   letter-spacing:2px;
   color:#ffdf45;
   text-shadow: 4px 4px 0 #000, 6px 6px 0 rgba(0,0,0,.2);
-  margin-top:6px;
+  margin-top:-15px;
 }
 
 .title-main{
@@ -206,6 +206,19 @@ body{
   margin-top:28px;
   z-index:10;
 }
+.big-number{
+  margin-top:36px;   /* pushes number down so it sits nicely */
+  font-size:72px;
+  color:#29d229;
+  text-shadow: 6px 6px 0 #1c2b72, 10px 10px 0 rgba(0,0,0,.18);
+  z-index:12;
+  text-align:center;
+}
+
+.heart-meter{
+  margin-top:-25px;   /* space between number and heart */
+  z-index:10;
+}
 
 .heart-stage{
   width:min(460px, 72vw);
@@ -213,27 +226,14 @@ body{
   height:auto;
   image-rendering: pixelated;
   display:block;
-  filter: drop-shadow(6px 6px 0 rgba(0,0,0,.18));
 }
 
-/* ✅ BIG NUMBER: above heart and above egg */
-.big-number{
-  margin-top:10px;              /* under heart */
-  font-size:66px;               /* bigger */
-  color:#ffffff;
-  text-shadow: 6px 6px 0 #1c2b72, 10px 10px 0 rgba(0,0,0,.18);
-  pointer-events:none;
-  z-index:12;
-}
-
-/* Egg higher (closer to number) */
 .egg-wrap{
-  margin-top:6px;               /* smaller gap => higher */
+  margin-top:-25px;   /* space between heart and egg */
   width:320px;
-  height:260px;                 /* shorter so it sits higher */
+  height:260px;
   display:grid;
   place-items:center;
-  z-index:10;
 }
 
 .egg{
@@ -302,8 +302,8 @@ body{
 
 /* ✅ PLAY same size as power AND bigger */
 .img-btn-play{
-  width:92px;
-  height:92px;
+  width:100px;
+  height:100px;
   background:url("./assets/play_button.png") center/contain no-repeat;
 }
 
