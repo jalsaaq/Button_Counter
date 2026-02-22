@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TechHub Button Counter</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <main class="stage">
+
+    <!-- START -->
+    <section id="screenStart" class="screen screen-start">
+      <div class="title-top">TECHHUB</div>
+      <div class="title-main">BUTTON COUNTER</div>
+
+      <div class="panel">
+        <label class="label" for="nameInput">PLAYER NAME</label>
+        <input id="nameInput" class="pixel-input" maxlength="16" placeholder="TYPE HERE" />
+
+        <div class="actions">
+          <button id="startBtn" class="img-btn img-btn-start" type="button" aria-label="Start"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAME -->
+    <section id="screenGame" class="screen screen-game hidden">
+      <div class="game-layout">
+
+        <!-- TOP -->
+        <div class="topbar">
+          <button id="backTopBtn" class="back-arrow" type="button" aria-label="Back"></button>
+        </div>
+
+        <!-- HUD -->
+        <div class="hud">
+          <div class="hud-box">
+            <div class="hud-label">TIME</div>
+            <div class="hud-value"><span id="timeText">10.0</span></div>
+          </div>
+
+          <div class="hud-box">
+            <div class="hud-label">CLICKS</div>
+            <div class="hud-value"><span id="clickText">0</span></div>
+          </div>
+
+          <div class="hud-box">
+            <div class="hud-label">BEST</div>
+            <div class="hud-value"><span id="bestText">0</span></div>
+          </div>
+        </div>
+
+        <!-- HEART BAR -->
+        <div class="heart-meter">
+          <img id="heartStage" src="./assets/1.png" class="heart-stage" alt="heart meter">
+        </div>
+
+        <!-- BIG NUMBER (NOT on heart) -->
+        <div class="big-number" id="bigTimer">10</div>
+
+        <!-- EGG CENTER -->
+        <div class="egg-wrap">
+          <button id="egg" class="egg" type="button" aria-label="Egg"></button>
+        </div>
+
+        <!-- BOTTOM CONTROLS -->
+        <div class="bottom-controls">
+          <button id="playBtn" class="img-btn img-btn-play" type="button" aria-label="Play"></button>
+
+          <button id="powerBtn" class="power-btn" type="button" aria-label="Power">
+            <img id="powerIcon" src="./assets/off.png" alt="">
+          </button>
+        </div>
+
+        <!-- LEADERBOARD (ONLY AFTER END) -->
+        <div id="leaderPanel" class="panel game-panel hidden">
+          <div class="row-between">
+            <div class="panel-subtitle">LEADERBOARD</div>
+
+            <div id="trophyWrap" class="trophy-wrap hidden">
+              <img src="./assets/trophy.png" class="trophy" alt="trophy" />
+              <div class="trophy-text">NEW RECORD</div>
+            </div>
+          </div>
+
+          <ol id="leaderGame" class="leader"></ol>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
