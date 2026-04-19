@@ -35,63 +35,52 @@ let state = {
   bestGlobal: 0
 };
 
-/* ---------- Pixel Egg (NO PHOTOS) ---------- */
-function eggSvg(stage){
-  const crack = (stage >= 1) ? `
-    <rect x="26" y="28" width="2" height="2" fill="#5c4a35"/>
-    <rect x="28" y="30" width="2" height="2" fill="#5c4a35"/>
-    <rect x="30" y="32" width="2" height="2" fill="#5c4a35"/>
-    <rect x="32" y="34" width="2" height="2" fill="#5c4a35"/>
-  ` : "";
-
-  const crack2 = (stage >= 2) ? `
-    <rect x="20" y="36" width="2" height="2" fill="#5c4a35"/>
-    <rect x="22" y="38" width="2" height="2" fill="#5c4a35"/>
-    <rect x="24" y="40" width="2" height="2" fill="#5c4a35"/>
-    <rect x="26" y="42" width="2" height="2" fill="#5c4a35"/>
-  ` : "";
-
-  const chips = (stage >= 3) ? `
-    <rect x="14" y="52" width="4" height="2" fill="#e9d7b8"/>
-    <rect x="44" y="50" width="4" height="2" fill="#e9d7b8"/>
-    <rect x="10" y="46" width="2" height="2" fill="#c8b089"/>
-    <rect x="50" y="44" width="2" height="2" fill="#c8b089"/>
-  ` : "";
-
-  const svg = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" shape-rendering="crispEdges">
-    <rect x="18" y="58" width="28" height="4" fill="rgba(0,0,0,0.18)"/>
-    <path d="M32 8 C42 8, 50 18, 50 30 C50 48, 42 56, 32 56 C22 56, 14 48, 14 30 C14 18, 22 8, 32 8 Z"
-          fill="#f2e6d1" stroke="#2b1b10" stroke-width="2"/>
-
-    <rect x="22" y="16" width="2" height="2" fill="#ffffff"/>
-    <rect x="24" y="14" width="2" height="2" fill="#ffffff"/>
-
-    <rect x="18" y="38" width="2" height="2" fill="#e0caa6"/>
-    <rect x="20" y="42" width="2" height="2" fill="#e0caa6"/>
-    <rect x="22" y="46" width="2" height="2" fill="#e0caa6"/>
-
-    ${crack}
-    ${crack2}
-    ${chips}
-  </svg>`.trim();
-
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-}
-
+/* ---------- 5-State Pixel Egg Progression ---------- */
 function setEggStage(stage){
-  egg.style.backgroundImage = `url("${eggSvg(stage)}")`;
+  const images = [
+    "./assets/egg1.png", 
+    "./assets/egg2.png", 
+    "./assets/egg3.png", 
+    "./assets/egg4.png", 
+    "./assets/egg5.png"
+  ];
+
+  egg.style.backgroundImage = `url("${images[stage]}")`;
   egg.style.backgroundRepeat = "no-repeat";
-  egg.style.backgroundPosition = "center";
-  egg.style.backgroundSize = "100% 100%";
+  
+  /* We changed this to 250px to make the egg much bigger! 
+     And we use "bottom center" so it sits on the ground. */
+  egg.style.backgroundSize = "auto 250px"; 
+  egg.style.backgroundPosition = "bottom center"; 
 }
+
+
 
 function crackFromClicks(clicks){
-  if (clicks < 10) return 0;
-  if (clicks < 20) return 1;
-  if (clicks < 30) return 2;
-  return 3;
+  if (clicks < 10) return 0; 
+  if (clicks < 25) return 1; 
+  if (clicks < 40) return 2; 
+  if (clicks < 60) return 3; 
+  return 4;                  
 }
+
+/* ---------- Hatch Rumble Logic ---------- */
+function updateRumble(clicks) {
+  // First, clean off any old rumble classes
+  egg.classList.remove("rumble-1", "rumble-2", "rumble-3", "rumble-4");
+
+  // Apply the new shake based on the click count
+  if (clicks >= 60) {
+    egg.classList.add("rumble-4"); // Hatched! Stop shaking.
+  } else if (clicks >= 40) {
+    egg.classList.add("rumble-3"); // 40+ clicks: Violent rumble
+  } else if (clicks >= 25) {
+    egg.classList.add("rumble-2"); // 25+ clicks: Medium shake
+  } else if (clicks >= 10) {
+    egg.classList.add("rumble-1"); // 10+ clicks: Gentle tremble
+  }
+}
+
 
 /* ---------- Leaderboard ---------- */
 function readBoard(){
@@ -170,6 +159,7 @@ function resetGameUI(){
   state.timeLeftMs = 10000;
 
   setEggStage(0);
+  updateRumble(0);
   heartStageImg.src = "./assets/1.png";
 
   trophyWrap.classList.add("hidden");
@@ -273,6 +263,7 @@ egg.addEventListener("click", () => {
   clickText.textContent = String(state.clicks);
 
   setEggStage(crackFromClicks(state.clicks));
+  updateRumble(state.clicks);
 
   egg.classList.remove("crack-pop");
   void egg.offsetWidth;
