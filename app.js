@@ -1,3 +1,6 @@
+const crackSound = new Audio("./assets/crack.mp3");
+const chickSound = new Audio("./assets/chick.mp3");
+
 const STORAGE = "pixel_button_counter_board_v1";
 
 const screenStart   = document.getElementById("screenStart");
@@ -8,7 +11,7 @@ const startBtn      = document.getElementById("startBtn");
 
 const backTopBtn    = document.getElementById("backTopBtn");
 
-const playBtn       = document.getElementById("playBtn");
+
 const powerBtn      = document.getElementById("powerBtn");
 const powerIcon     = document.getElementById("powerIcon");
 
@@ -150,7 +153,7 @@ function clearTimers(){
 }
 
 function setPower(isOn){
-  powerIcon.src = isOn ? "./assets/on.png" : "./assets/off.png";
+  powerIcon.src = isOn ? "./assets/off.png" : "./assets/on.png";
 }
 
 /* ---------- Game ---------- */
@@ -242,11 +245,7 @@ backTopBtn.addEventListener("click", () => {
   show("start");
 });
 
-/* PLAY starts the game */
-playBtn.addEventListener("click", () => {
-  if (!state.player) return;
-  if (!state.running) startRound();
-});
+
 
 /* Power ends early (toggle stop) */
 powerBtn.addEventListener("click", () => {
@@ -255,8 +254,8 @@ powerBtn.addEventListener("click", () => {
   else startRound();
 });
 
-/* Egg click */
-egg.addEventListener("click", () => {
+/* ---------- The Main Click Action ---------- */
+function doOneClick() {
   if (!state.running) return;
 
   state.clicks += 1;
@@ -265,10 +264,23 @@ egg.addEventListener("click", () => {
   setEggStage(crackFromClicks(state.clicks));
   updateRumble(state.clicks);
 
+  // --- NEW SOUND CODE ---
+  if (crackFromClicks(state.clicks) === 4) {
+    chickSound.currentTime = 0; 
+    chickSound.play();
+  } else {
+    crackSound.currentTime = 0;
+    crackSound.play();
+  }
+  // ----------------------
+
   egg.classList.remove("crack-pop");
-  void egg.offsetWidth;
+  void egg.offsetWidth; 
   egg.classList.add("crack-pop");
-});
+}
+
+/* Mouse Click Listener */
+egg.addEventListener("click", doOneClick);
 
 /* init */
 renderBoard();

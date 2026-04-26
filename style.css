@@ -141,7 +141,7 @@ body{
 /* back arrow top-left */
 .topbar{
   position:absolute;
-  top:10px;
+  top:35px;
   left:10px;
   z-index:20;
 }
@@ -154,6 +154,10 @@ body{
   box-shadow: var(--shadow2);
   cursor:pointer;
   position:relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
 }
 
 .back-arrow:active{
@@ -161,22 +165,7 @@ body{
   box-shadow: 3px 3px 0 rgba(0,0,0,.18);
 }
 
-.back-arrow::before{
-  content:"";
-  position:absolute;
-  left:18px;
-  top:16px;
-  width:6px;
-  height:6px;
-  background:var(--border);
-  box-shadow:
-    -6px 6px 0 var(--border),
-     0px 6px 0 var(--border),
-     6px 6px 0 var(--border),
-     6px 0px 0 var(--border),
-    12px 0px 0 var(--border),
-    18px 0px 0 var(--border);
-}
+
 
 /* HUD row */
 .hud{
@@ -216,34 +205,34 @@ body{
 }
 
 .heart-meter{
-  margin-top:-25px;   /* space between number and heart */
+  margin-top: 0px;   /* space between number and heart */
   z-index:10;
 }
 
 .heart-stage {
-  width: min(460px, 72vw);
-  max-width: 460px;
-  height: 80px;         /* Locked height so it never shifts */
-  object-fit: contain;  /* Keeps the bar from stretching */
+  width: min(400px, 72vw);
+  max-width: 400px;
+  height: auto;         
+
   image-rendering: pixelated;
   display: block;
 }
 
 .egg-wrap {
-  margin-top: -25px; 
-  width: 400px;         /* Wider area for the egg and shells */
-  height: 300px;        /* Taller area so it doesn't crop */
-  display: grid;
-  place-items: center;
+    margin-top: -25px;
+    width: 400px;             /* Wider area for the egg and shells */
+    height: 300px;            /* Taller area so it doesn't crop */
+    display: grid;
+    place-items: center;
 }
 
 .egg {
-  width: 350px;         /* Making the clickable button much bigger */
-  height: 250px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  image-rendering: pixelated;
+    width: 400px;             /* Making the clickable button much bigger */
+    height: 300px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    image-rendering: pixelated;
 }
 
 .egg:hover{ transform: translateY(-2px); }
