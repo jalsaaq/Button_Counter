@@ -287,20 +287,3 @@ renderBoard();
 setPower(false);
 setEggStage(0);
 setHud();
-
-/* The Bluetooth Master Logic */
-window.addEventListener('keydown', (event) => {
-  if (event.code === 'Space' || event.key === ' ') {
-    event.preventDefault(); // Stop the screen from jumping
-
-    // 1. If the game isn't running yet, let the button START it
-    if (!state.running) {
-      // This mimics clicking your green Power Button
-      startRound(); 
-    } 
-    // 2. If the game IS running, let the button CRACK the egg
-    else {
-      doOneClick();
-    }
-  }
-});
